@@ -1,186 +1,355 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Download | Sensi Premium</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #fff;
-      overflow: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .card {
-      background: #1a1a2e;
-      border-radius: 25px;
-      padding: 60px 40px;
-      width: 90%;
-      max-width: 550px;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(0,255,213,0.2) 0%, transparent 70%);
-      top: -100px;
-      left: -100px;
-      animation: rotate 20s linear infinite;
-    }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
 
-    @keyframes rotate {
-      0% { transform: rotate(0); }
-      100% { transform: rotate(360deg); }
-    }
+        .download-container {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out;
+            margin-bottom: 30px;
+        }
 
-    .loader {
-      width: 70px;
-      height: 70px;
-      border: 5px solid rgba(255,255,255,0.1);
-      border-top: 5px solid #00ffd5;
-      border-radius: 50%;
-      margin: 0 auto 25px;
-      animation: spin 1.2s linear infinite;
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 15px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
 
-    p {
-      font-size: 15px;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
+        h1 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
 
-    .timer {
-      font-size: 40px;
-      color: #00ffd5;
-      font-weight: bold;
-      margin: 20px 0;
-    }
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            margin-bottom: 35px;
+            line-height: 1.5;
+        }
 
-    #downloadBtn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 20px 70px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #000;
-      background: linear-gradient(145deg, #00ffd5, #00b5ff);
-      border-radius: 60px;
-      box-shadow: 0 0 20px #00ffd5;
-      text-decoration: none;
-      opacity: 0.3;
-      pointer-events: none;
-      transition: all 0.4s ease;
-    }
+        .timer-section {
+            margin-bottom: 30px;
+        }
 
-    #downloadBtn.active {
-      opacity: 1;
-      pointer-events: auto;
-      animation: glow 2s infinite ease-in-out;
-    }
+        .timer {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            margin-bottom: 15px;
+        }
 
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #00ffd5; }
-      50% { box-shadow: 0 0 25px #00ffd5; }
-      100% { box-shadow: 0 0 10px #00ffd5; }
-    }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
 
-    .footer {
-      font-size: 13px;
-      color: #888;
-      margin-top: 35px;
-    }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 1s ease;
+        }
 
-    .hide {
-      display: none;
-    }
-  </style>
+        .download-btn {
+            background: linear-gradient(45deg, #cccccc, #999999);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: not-allowed;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 180px;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .download-btn.enabled {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .download-btn.enabled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .info-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .ad-container {
+            width: 100%;
+            max-width: 450px;
+            min-height: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 20px;
+            animation: float 15s infinite linear;
+        }
+
+        .shape:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { left: 30%; animation-delay: 3s; }
+        .shape:nth-child(3) { left: 50%; animation-delay: 6s; }
+        .shape:nth-child(4) { left: 70%; animation-delay: 9s; }
+        .shape:nth-child(5) { left: 90%; animation-delay: 12s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .download-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 { font-size: 22px; }
+            .timer { font-size: 36px; }
+            .download-btn { padding: 14px 30px; font-size: 15px; }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="card">
-    <div class="loader" id="loader"></div>
-    <h1>Your download is almost ready</h1>
-    <p>Please wait while we prepare your file</p>
-    <div class="timer" id="timer">10</div>
-    <a id="downloadBtn" href="#" download>Download Now</a>
-    <div class="footer">© 2025 Sensi Premium
-    <div style="margin-top: 30px;">
-      <!-- Native Banner Ad (4:1 layout) -->
-      <script async="async" data-cfasync="false" src="//pl26730266.profitableratecpm.com/40599e32919f2509d867423e0115e169/invoke.js"></script>
-      <div id="container-40599e32919f2509d867423e0115e169" style="width: 100%; max-width: 468px; margin: 20px auto;"></div>
+    <div class="floating-shapes">
+        <div class="shape">♦</div>
+        <div class="shape">●</div>
+        <div class="shape">▲</div>
+        <div class="shape">■</div>
+        <div class="shape">♦</div>
     </div>
-  </div>
 
+    <div class="main-container">
+        <div class="download-container">
+            <div class="logo">⬇</div>
+            <h1>Premium Download</h1>
+            <p class="subtitle">Your file is being prepared. Please wait for the download to become available.</p>
+            
+            <div class="timer-section">
+                <div class="timer" id="timer">10</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <button class="download-btn" id="downloadBtn">
+                🔒 Please Wait...
+            </button>
+            
+            <p class="info-text">
+                High-speed download • Secure connection • Mobile friendly
+            </p>
+        </div>
 
-  <script>
-    const timerEl = document.getElementById("timer");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const loader = document.getElementById("loader");
-    const downloadLink = "https://your-link.com/yourfile.zip"; // Replace with your real file link
-    const startKey = 'sensi_premium_timer';
+        <div class="ad-container">
+            <script async data-cfasync="false" src="//pl26730266.profitableratecpm.com/40599e32919f2509d867423e0115e169/invoke.js"></script>
+            <div id="container-40599e32919f2509d867423e0115e169"></div>
+        </div>
+    </div>
 
-    function getRemaining() {
-      const stored = localStorage.getItem(startKey);
-      if (!stored) return 10;
-      const elapsed = Math.floor((Date.now() - parseInt(stored)) / 1000);
-      return Math.max(0, 10 - elapsed);
-    }
+    <div class="social-bar">
+        <script type='text/javascript' src='//pl26730722.profitableratecpm.com/06/a0/20/06a0200c24f440740b237ee98b871816.js'></script>
+    </div>
 
-    function initCountdown() {
-      let remaining = getRemaining();
-      timerEl.textContent = remaining;
+    <script type='text/javascript' src='//pl26730732.profitableratecpm.com/6e/5c/44/6e5c44f55124cc80d52e51e323071c1c.js'></script>
 
-      if (!localStorage.getItem(startKey)) {
-        localStorage.setItem(startKey, Date.now());
-      }
-
-      const interval = setInterval(() => {
-        remaining--;
-        timerEl.textContent = remaining;
-
-        if (remaining <= 0) {
-          clearInterval(interval);
-          loader.classList.add("hide");
-          timerEl.textContent = "Ready!";
-          downloadBtn.href = downloadLink;
-          downloadBtn.classList.add("active");
+    <script>
+        var timeLeft = 10;
+        var timerStarted = false;
+        var interval;
+        
+        var timerEl = document.getElementById('timer');
+        var downloadBtn = document.getElementById('downloadBtn');
+        var progressFill = document.getElementById('progressFill');
+        
+        // Check session storage
+        try {
+            var savedTime = sessionStorage.getItem('downloadTimer');
+            var savedStart = sessionStorage.getItem('timerStart');
+            
+            if (savedTime && savedStart) {
+                var elapsed = Math.floor((Date.now() - parseInt(savedStart)) / 1000);
+                timeLeft = Math.max(0, parseInt(savedTime) - elapsed);
+                timerStarted = true;
+            }
+        } catch(e) {
+            // Session storage not available
         }
-      }, 1000);
-    }
-
-    initCountdown();
-  </script>
-
-
-  <!-- Social Bar Ad -->
-  <script type='text/javascript' src='//pl26730722.profitableratecpm.com/06/a0/20/06a0200c24f440740b237ee98b871816.js'></script>
-
-  <!-- Popunder Ad -->
-  <script type='text/javascript' src='//pl26730732.profitableratecpm.com/6e/5c/44/6e5c44f55124cc80d52e51e323071c1c.js'></script>
+        
+        function updateTimer() {
+            timerEl.textContent = timeLeft;
+            var progress = ((10 - timeLeft) / 10) * 100;
+            progressFill.style.width = progress + '%';
+            
+            if (timeLeft <= 0) {
+                downloadBtn.textContent = '⬇ Download Now';
+                downloadBtn.className = 'download-btn enabled';
+                timerEl.textContent = '✓';
+                timerEl.style.color = '#4CAF50';
+                
+                try {
+                    sessionStorage.removeItem('downloadTimer');
+                    sessionStorage.removeItem('timerStart');
+                } catch(e) {}
+                
+                clearInterval(interval);
+            }
+        }
+        
+        function startTimer() {
+            if (!timerStarted) {
+                timerStarted = true;
+                try {
+                    sessionStorage.setItem('downloadTimer', '10');
+                    sessionStorage.setItem('timerStart', Date.now().toString());
+                } catch(e) {}
+            }
+            
+            interval = setInterval(function() {
+                timeLeft--;
+                updateTimer();
+            }, 1000);
+        }
+        
+        // Initialize
+        updateTimer();
+        if (timeLeft > 0) {
+            startTimer();
+        }
+        
+        // Download click
+        downloadBtn.addEventListener('click', function() {
+            if (this.className.indexOf('enabled') !== -1) {
+                // Replace with your download link
+                window.open('YOUR_DOWNLOAD_LINK_HERE', '_blank');
+            }
+        });
+        
+        // Handle visibility change
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                clearInterval(interval);
+            } else if (timeLeft > 0 && timerStarted) {
+                try {
+                    var savedStart = sessionStorage.getItem('timerStart');
+                    if (savedStart) {
+                        var elapsed = Math.floor((Date.now() - parseInt(savedStart)) / 1000);
+                        timeLeft = Math.max(0, 10 - elapsed);
+                        updateTimer();
+                        if (timeLeft > 0) {
+                            startTimer();
+                        }
+                    }
+                } catch(e) {}
+            }
+        });
+    </script>
 </body>
-
 </html>
